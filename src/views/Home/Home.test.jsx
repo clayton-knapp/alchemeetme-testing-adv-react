@@ -34,9 +34,15 @@ describe('Profile Tests', () => {
     });
 
     // check for motto
-    return waitFor(() => {
+    await waitFor(() => {
       const motto = screen.getByText(/res non verba/i);
       expect(motto.textContent).toBe('Res Non Verba');
+    });
+
+    // check for interests heading
+    return waitFor(() => {
+      const interestsHeading = screen.getByText(/interests/i);
+      expect(interestsHeading.textContent).toBe('Interests');
     });
   });
 });
