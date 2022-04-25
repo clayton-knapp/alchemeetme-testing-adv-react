@@ -40,9 +40,15 @@ describe('Profile Tests', () => {
     });
 
     // check for interests heading
-    return waitFor(() => {
+    waitFor(() => {
       const interestsHeading = screen.getByText(/interests/i);
       expect(interestsHeading.textContent).toBe('Interests');
     });
+
+    // test for avatar image
+    screen.getByAltText('avatar');
+
+    // test for header image
+    screen.getByAltText('header');
   });
 });
