@@ -51,7 +51,7 @@ describe('Profile Tests', () => {
     // test for header image
     screen.getByAltText('header');
 
-    // test for list of interests
+    // test for list of interests - this is rigorous enough
     const list = screen.getAllByRole('listitem');
     expect(list.length).toEqual(6);
   });
