@@ -1,3 +1,7 @@
+import { render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import Home from './Home';
+import Profile from '../../components/Profile/Profile';
 
 const user = {
   id: 1,
@@ -8,8 +12,47 @@ const user = {
   likes: ['React', 'Anime', 'Traveling', 'Living', 'Tower Defense Games', 'Card Games'],
   motto: 'Res Non Verba',
   color: 'crimson',
-}
+};
 
-test('Should render the user profile', () => {
+describe('Profile Tests', () => {
+  test('Should render the user profile', async () => {
+    render(
+      <MemoryRouter>
+        <Home user={user} />
+      </MemoryRouter>
+    );
 
-})
+    // screen.debug();
+
+    // const heading = screen.getByRole('heading');
+    // expect(heading.textContent).toEqual('Vonta');
+
+    // check for profile name
+    await waitFor(() => {
+      const profile = screen.getByText(/vonta/i);
+      expect(profile.textContent).toBe('Vonta');
+    });
+
+    // check for motto
+    await waitFor(() => {
+      const motto = screen.getByText(/res non verba/i);
+      expect(motto.textContent).toBe('Res Non Verba');
+    });
+
+    // check for interests heading
+    waitFor(() => {
+      const interestsHeading = screen.getByText(/interests/i);
+      expect(interestsHeading.textContent).toBe('Interests');
+    });
+
+    // test for avatar image
+    screen.getByAltText('avatar');
+
+    // test for header image
+    screen.getByAltText('header');
+
+    // test for list of interests - this is rigorous enough
+    const list = screen.getAllByRole('listitem');
+    expect(list.length).toEqual(6);
+  });
+});
